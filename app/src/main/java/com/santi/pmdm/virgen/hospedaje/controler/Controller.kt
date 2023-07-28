@@ -2,6 +2,8 @@ package com.santi.pmdm.virgen.hospedaje.controler
 
 import android.content.Context
 import android.widget.Toast
+import com.santi.pmdm.virgen.hospedaje.MainActivity
+import com.santi.pmdm.virgen.hospedaje.adapter.AdapterHotel
 import com.santi.pmdm.virgen.hospedaje.dao.DaoHotels
 import com.santi.pmdm.virgen.hospedaje.models.Hotel
 
@@ -26,5 +28,10 @@ class Controller (val context : Context){
         listHotels.forEach{
             println (it)
         }
+    }
+
+    fun setAdapter() {
+        val myActivity = context as MainActivity
+        myActivity.binding.myRecyclerView.adapter = AdapterHotel(listHotels)
     }
 }
