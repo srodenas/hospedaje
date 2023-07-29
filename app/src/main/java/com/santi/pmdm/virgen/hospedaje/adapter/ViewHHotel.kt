@@ -9,7 +9,10 @@ import com.santi.pmdm.virgen.hospedaje.models.Hotel
 /*
 Recibe la vista creada por el adaptador y mapeo de los datos en la vista.
  */
-class ViewHHotel (view: View) : RecyclerView.ViewHolder (view){
+class ViewHHotel(view: View,
+                var deleteOnClick: (Int) -> Unit,
+                 var updateOnClick: (Int) -> Unit
+) : RecyclerView.ViewHolder (view){
     lateinit var binding: ItemHotelBinding
 
     init {
@@ -18,7 +21,7 @@ class ViewHHotel (view: View) : RecyclerView.ViewHolder (view){
 
 
     //método que se encarga de mapear los item por propiedad del modelo.
-    fun renderize(hotel : Hotel){
+    fun renderize(hotel : Hotel, position : Int){
         binding.txtviewName.setText(hotel.name)
         binding.txtviewCity.setText(hotel.city)
         binding.txtviewProvince.setText(hotel.province)
@@ -28,5 +31,18 @@ class ViewHHotel (view: View) : RecyclerView.ViewHolder (view){
             .load(hotel.image)
             .centerCrop()
             .into(binding.ivHotel)
+
+        setOnClickListener(position) //inicia los listener para los botones.
+    }
+
+    private fun setOnClickListener(position : Int) {
+
+        binding.btnEdit.setOnClickListener {
+            updateOnClick(position )
+        }
+
+        binding.btnDelete.setOnClickListener{
+            deleteOnClick(position)
+        }
     }
 }
