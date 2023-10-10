@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     fun init(){
         initRecyclerView()
         controller = Controller(this)  //Creamos el controler
-        controller.setAdapter()  //carmamos el adapter.
+        controller.setAdapter()  //cargamos el adapter.
         //controller.loggOut() //muestro el log en pantalla
     }
 

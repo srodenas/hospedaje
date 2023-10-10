@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Name ver"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/iv_hotel"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="City para ver"
         android:textColor = "@color/purple_700"
-        android:textSize = "18sp"
+        android:textSize = "14sp"
         android:layout_marginTop="15dp"
         />
 
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Provincia para ver"
         android:textColor = "@color/purple_500"
-        android:textSize = "18sp"
+        android:textSize = "14sp"
         />
 
     <TextView

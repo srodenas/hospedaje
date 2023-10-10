@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.santi.pmdm.virgen.hospedaje.MainActivity
 import com.santi.pmdm.virgen.hospedaje.adapter.AdapterHotel
 import com.santi.pmdm.virgen.hospedaje.dao.DaoHotels
+import com.santi.pmdm.virgen.hospedaje.dao.DaoHotels2
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogDeleteHotel
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogEditHotel
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogNewHotel
@@ -31,6 +32,10 @@ class Controller (val context : Context){
        // listHotels = DaoHotels.dataService.toMutableList()
         setScrollWithOffsetLinearLayout()  //Necesitamos el LayoutManager para posicionar el offset del scroll
         listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
+       // listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
+
+        //listHotels = DaoHotels2.dataService.toMutableList()  //llamamos al singleton.
+
         //layoutManager = (LinearLayoutManager(context as MainActivity)) as LinearLayoutManager
         initOnClickListener()
     }
