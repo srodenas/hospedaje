@@ -14,6 +14,15 @@ import com.santi.pmdm.virgen.hospedaje.R
 import com.santi.pmdm.virgen.hospedaje.databinding.DialogNewHotelBinding
 import com.santi.pmdm.virgen.hospedaje.models.Hotel
 
+/*
+Clase que recibe como argumento una lambda. Función de orden superior,
+para que su lógica sea tratado en el controler. El parámetro que mandará
+a la lambda de orden superior, será el nuevo hotel que se deberá de crear
+desde el Diálogo.
+
+Diálogo que inflará una nueva vista para recoger los datos del nuevo hotel a insertar.
+
+ */
 class DialogNewHotel (
     val onNewHotelDialog: (Hotel)-> Unit
 ): DialogFragment() {
@@ -21,9 +30,10 @@ class DialogNewHotel (
     private lateinit var activity: MainActivity
 
 
+
     /*
-    Diálogo que inflará una nueva vista para recoger los datos
-    del nuevo hotel a insertar.
+    Antes de onCreate, se utiliza la función onAttach, para inicializar cosas.
+    En este caso, me
      */
     override fun onAttach(context: Context) {
         super.onAttach(context)

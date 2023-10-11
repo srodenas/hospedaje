@@ -21,13 +21,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun init(){
-        initRecyclerView()
-        controller = Controller(this)  //Creamos el controler
-        controller.setAdapter()  //cargamos el adapter.
+        initRecyclerView()  //Cargamos el Layout al RecyclerView
+        controller = Controller(this)  //Creamos el controler, encargado de todo.
+        controller.setAdapter()  //cargamos el adapter. Encargado de adaptar los datos a las vistas.
         //controller.loggOut() //muestro el log en pantalla
     }
 
     private fun initRecyclerView() {
+        /*
+        layoutManager es el gestor responsable de posicionar los elementos (view) en un
+        recyclerview. Como lo cargamos a partir de un LinearLayoutManager, los elementos los
+        colocará uno debajo de otro (vertical). Automáticamente, aparecerá una barra de scroll que irá
+        moviéndose con respecto a los elementos que se vayan insertando. Necesita el contexto del activity.
+         */
         binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }

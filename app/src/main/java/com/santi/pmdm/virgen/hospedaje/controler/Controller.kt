@@ -17,41 +17,59 @@ Clase qye controlará todos los eventos que se produzcan.
 1.- Al crearse, llama al Dao y le devuelve todos los Hoteles. Lo inicializa
  */
 class Controller (val context : Context){
-    lateinit var listHotels : MutableList<Hotel>  //lista de objetos
-    lateinit var adapterHotel: AdapterHotel
+    lateinit var listHotels : MutableList<Hotel>  //lista de objetos (Repositorio).
+    lateinit var adapterHotel: AdapterHotel     //Encargado de adaptar los objetos a las vistas.
+    /*
+    Layout que tiene el RecyclerView. Es un LinearLayout. Lo tenemos para controlar el offset
+    del scroll. Cuando insertemos un nuevo hotel, quiero que se posicione en esa posición.
+     */
     private lateinit var layoutManager  : LinearLayoutManager
 
 
-
-
     init {
-        initData()
+        initData()  //inicializamos todo el tinglao.
     }
 
+
+    /*
+    1.- Necesitamos el Layout del RecyclerView
+    2.- Necesitamos cargar los datos del repositorio. Como es un singleton, se creará la primera vez.
+    3.- Inicializamos el evento del botón añadir.
+     */
     fun initData(){
        // listHotels = DaoHotels.dataService.toMutableList()
         setScrollWithOffsetLinearLayout()  //Necesitamos el LayoutManager para posicionar el offset del scroll
         listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
        // listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
-
         //listHotels = DaoHotels2.dataService.toMutableList()  //llamamos al singleton.
-
         //layoutManager = (LinearLayoutManager(context as MainActivity)) as LinearLayoutManager
         initOnClickListener()
     }
 
+
+    /*
+       Necesitamos el gestor del Layout que tiene el RecyclerView. Lo casteamos a LinearLayout, porque
+       cargamos como gestor de layout, un LinearLayout.
+    */
+
     private fun setScrollWithOffsetLinearLayout() {
          layoutManager = ((context as MainActivity)
-             .binding.myRecyclerView.layoutManager as LinearLayoutManager)
+             .binding
+             .myRecyclerView
+             .layoutManager as LinearLayoutManager)
     }
+
+
 
     /*
     Método que asigna el listener al botón de añadir.
+    1.- Al pulsar el botón de añadir, inicia el proceso del diálogo para añadir
+    un nuevo alojamiento.
      */
     private fun initOnClickListener() {
         val myActivity = context as MainActivity
         myActivity.binding.btnAdd.setOnClickListener {
-            addHotel()
+            addHotel()  //lambda que trata el evento del botón añadir. Inicia el Dialogo
         }
 
     }
@@ -103,7 +121,8 @@ class Controller (val context : Context){
 
 
     /*
-    Añade un nuevo hotel.
+    Añade un nuevo hotel. Los datos debemos de capturarlo desde el Dialogo.
+    La clase DialogNewHotel, recibe como parámetro una función lambda
      */
     fun addHotel(){
         Toast.makeText(context, "Añadiremos un nuevo hotel", Toast.LENGTH_LONG).show()
@@ -144,10 +163,14 @@ class Controller (val context : Context){
     private fun okOnNewHotel(hotel: Hotel) {
         listHotels.add(listHotels.size, hotel) //Insertamos en la última posición.
         adapterHotel.notifyItemInserted(listHotels.lastIndex) //notificamos.
-        //((context as MainActivity).binding.myRecyclerView as LinearLayoutManager)
-       //     .scrollToPositionWithOffset(listHotels.lastIndex, 20)
+        /*
+        Lo que hacemos es al insertar un nuevo hotel, de la última posición del scroll (ultimo pueblo)
+        hacemos un desplazamiento de 20 para que veamos el nuevo pueblo.
+         */
         layoutManager.scrollToPositionWithOffset(listHotels.lastIndex, 20)
     }
+
+
 
     private fun okOnEditHotel(editHotel: Hotel, pos: Int) {
         listHotels.removeAt(pos)

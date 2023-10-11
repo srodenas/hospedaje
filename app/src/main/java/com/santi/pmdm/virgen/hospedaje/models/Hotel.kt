@@ -1,6 +1,6 @@
 package com.santi.pmdm.virgen.hospedaje.models
 
-class Hotel (
+data class Hotel (
     var name: String,
     var city: String,
     var province: String,

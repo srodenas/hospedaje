@@ -2,6 +2,11 @@ package com.santi.pmdm.virgen.hospedaje.objects_models
 
 import com.santi.pmdm.virgen.hospedaje.models.Hotel
 
+/*
+Objeto con la lista de todos los hoteles llamado repositorio.
+Son los datos originales. Como no va a haber persistencia, los datos
+se irán modificando e insertando en memoria.
+ */
 object Repository {
     val listHotels : List<Hotel> = listOf(
         Hotel(

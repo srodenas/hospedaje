@@ -20,12 +20,17 @@ lambda.
  */
 class DaoHotels private constructor(): InterfaceDao {
     companion object {
+        /*
+        by lazy, quiere decir que si hacemos referencia a myDao por primera vez, al tener una
+        lambda, ejecutará su lógica. Si volvemos a referenciarlo otra vez, NOOOO ejecutará la lógica
+        de la lambda.
+         */
         val myDao: DaoHotels by lazy{  //lazy delega a un """PRIMER ACCESO""""
             DaoHotels()  //Me creo sólo este objeto una vez.
         }
     }
 
-    //Método que accede a la BBDD y devuelve todos los datos
+    //Método que accede al repositorio y devuelve todos los datos
     override
     fun getDataHotels(): List<Hotel>   = Repository.listHotels
 }
