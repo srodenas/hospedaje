@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.santi.pmdm.virgen.hospedaje.controler.Controller
 import com.santi.pmdm.virgen.hospedaje.databinding.ActivityMainBinding
+import com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment
 
 class MainActivity : AppCompatActivity() {
-    lateinit var controller : Controller
     lateinit var binding : ActivityMainBinding
-   // lateinit var recyclerView: RecyclerView
+    lateinit var fragmentHotel : HospedajeFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,20 +21,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun init(){
-        initRecyclerView()  //Cargamos el Layout al RecyclerView
-        controller = Controller(this)  //Creamos el controler, encargado de todo.
-        controller.setAdapter()  //cargamos el adapter. Encargado de adaptar los datos a las vistas.
-        //controller.loggOut() //muestro el log en pantalla
+       // createFragment()
     }
 
-    private fun initRecyclerView() {
-        /*
-        layoutManager es el gestor responsable de posicionar los elementos (view) en un
-        recyclerview. Como lo cargamos a partir de un LinearLayoutManager, los elementos los
-        colocará uno debajo de otro (vertical). Automáticamente, aparecerá una barra de scroll que irá
-        moviéndose con respecto a los elementos que se vayan insertando. Necesita el contexto del activity.
-         */
-        binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
-
+    private fun createFragment() {
+        fragmentHotel = HospedajeFragment()
     }
+
 }

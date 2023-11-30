@@ -2,23 +2,30 @@ package com.santi.pmdm.virgen.hospedaje.controler
 
 import android.content.Context
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.santi.pmdm.virgen.hospedaje.MainActivity
 import com.santi.pmdm.virgen.hospedaje.adapter.AdapterHotel
 import com.santi.pmdm.virgen.hospedaje.dao.DaoHotels
-import com.santi.pmdm.virgen.hospedaje.dao.DaoHotels2
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogDeleteHotel
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogEditHotel
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogNewHotel
+import com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment
 import com.santi.pmdm.virgen.hospedaje.models.Hotel
 
 /*
 Clase qye controlará todos los eventos que se produzcan.
 1.- Al crearse, llama al Dao y le devuelve todos los Hoteles. Lo inicializa
  */
-class Controller (val context : Context){
+class Controller (val context : Context, val contextFragment : HospedajeFragment){
     lateinit var listHotels : MutableList<Hotel>  //lista de objetos (Repositorio).
     lateinit var adapterHotel: AdapterHotel     //Encargado de adaptar los objetos a las vistas.
+    //var fragment : HospedajeFragment
+
+    init {
+        //fragment = contextFragment as HospedajeFragment
+    }
+
     /*
     Layout que tiene el RecyclerView. Es un LinearLayout. Lo tenemos para controlar el offset
     del scroll. Cuando insertemos un nuevo hotel, quiero que se posicione en esa posición.
@@ -40,9 +47,7 @@ class Controller (val context : Context){
        // listHotels = DaoHotels.dataService.toMutableList()
         setScrollWithOffsetLinearLayout()  //Necesitamos el LayoutManager para posicionar el offset del scroll
         listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
-       // listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
-        //listHotels = DaoHotels2.dataService.toMutableList()  //llamamos al singleton.
-        //layoutManager = (LinearLayoutManager(context as MainActivity)) as LinearLayoutManager
+        setAdapter()
         initOnClickListener()
     }
 
@@ -53,10 +58,10 @@ class Controller (val context : Context){
     */
 
     private fun setScrollWithOffsetLinearLayout() {
-         layoutManager = ((context as MainActivity)
-             .binding
+         layoutManager = contextFragment
+             .bindigFragment
              .myRecyclerView
-             .layoutManager as LinearLayoutManager)
+             .layoutManager as LinearLayoutManager
     }
 
 
@@ -67,8 +72,7 @@ class Controller (val context : Context){
     un nuevo alojamiento.
      */
     private fun initOnClickListener() {
-        val myActivity = context as MainActivity
-        myActivity.binding.btnAdd.setOnClickListener {
+        contextFragment.bindigFragment.btnAdd.setOnClickListener {
             addHotel()  //lambda que trata el evento del botón añadir. Inicia el Dialogo
         }
 
@@ -82,8 +86,6 @@ class Controller (val context : Context){
     }
 
     fun setAdapter() {
-        val myActivity = context as MainActivity
-
         adapterHotel =  AdapterHotel(  //creo el adapter y me lo guardo en una propiedad
             listHotels,
 
@@ -95,7 +97,7 @@ class Controller (val context : Context){
                     pos-> updateHotel(pos) //actualizara el hotel seleccionado
             }
         )
-        myActivity.binding.myRecyclerView.adapter = adapterHotel
+        contextFragment.bindigFragment.myRecyclerView.adapter = adapterHotel
 
     }
 
@@ -116,9 +118,6 @@ class Controller (val context : Context){
 
 
     }
-
-
-
 
     /*
     Añade un nuevo hotel. Los datos debemos de capturarlo desde el Dialogo.

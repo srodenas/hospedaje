@@ -5,9 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragment.hospedaje.HospedajeFragment">
 
-    <androidx.fragment.app.FragmentContainerView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment"/>
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+
+
+        />
+
+    <ImageButton
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/add_ic_baseline_add_24"
+
+        />
 
 </FrameLayout>
