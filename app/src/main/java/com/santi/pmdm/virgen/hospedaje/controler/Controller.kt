@@ -20,12 +20,6 @@ Clase qye controlará todos los eventos que se produzcan.
 class Controller (val context : Context, val contextFragment : HospedajeFragment){
     lateinit var listHotels : MutableList<Hotel>  //lista de objetos (Repositorio).
     lateinit var adapterHotel: AdapterHotel     //Encargado de adaptar los objetos a las vistas.
-    //var fragment : HospedajeFragment
-
-    init {
-        //fragment = contextFragment as HospedajeFragment
-    }
-
     /*
     Layout que tiene el RecyclerView. Es un LinearLayout. Lo tenemos para controlar el offset
     del scroll. Cuando insertemos un nuevo hotel, quiero que se posicione en esa posición.
@@ -49,6 +43,27 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
         listHotels = DaoHotels.myDao.getDataHotels().toMutableList()  //llamamos al singleton.
         setAdapter()
         initOnClickListener()
+    }
+
+
+    /*
+    Cargamos el adaptador.
+     */
+    fun setAdapter() {
+        adapterHotel =  AdapterHotel(  //creo el adapter y me lo guardo en una propiedad
+            listHotels,
+
+            {
+                    pos-> delHotel(pos) //eliminará el hotel seleccionado
+            },
+
+            {
+                    pos-> updateHotel(pos) //actualizara el hotel seleccionado
+            }
+        )
+        contextFragment.bindigFragment
+            .myRecyclerView.adapter = adapterHotel
+
     }
 
 
@@ -78,28 +93,8 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
 
     }
 
-    fun loggOut() {
-        Toast.makeText(context, "He mostrado los datos en pantalla", Toast.LENGTH_LONG).show()
-        listHotels.forEach{
-            println (it)
-        }
-    }
 
-    fun setAdapter() {
-        adapterHotel =  AdapterHotel(  //creo el adapter y me lo guardo en una propiedad
-            listHotels,
 
-            {
-                    pos-> delHotel(pos) //eliminará el hotel seleccionado
-            },
-
-            {
-                    pos-> updateHotel(pos) //actualizara el hotel seleccionado
-            }
-        )
-        contextFragment.bindigFragment.myRecyclerView.adapter = adapterHotel
-
-    }
 
 
     /*
@@ -179,4 +174,13 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
         layoutManager.scrollToPositionWithOffset(pos, 20)
 
     }
+
+
+    fun loggOut() {
+        Toast.makeText(context, "He mostrado los datos en pantalla", Toast.LENGTH_LONG).show()
+        listHotels.forEach{
+            println (it)
+        }
+    }
+
 }
