@@ -29,13 +29,13 @@ Esta clase, será la que se encargue de cargar el recyclerView.
 class HospedajeFragment () : Fragment() {
     lateinit var bindigFragment: FragmentHospedajeBinding
     lateinit var controller : Controller
-    lateinit var activityContext : Context
+    //lateinit var activityContext : Context
 
-    override fun onAttach(context: Context) {
+   /* override fun onAttach(context: Context) {
         super.onAttach(context)
         activityContext = context as MainActivity
     }
-
+    */
 
     //CREO LA VISTA DEL FRAGMENTO
     override fun onCreateView(
@@ -60,12 +60,10 @@ class HospedajeFragment () : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //inicializo el ReciclerView
-        bindigFragment.myRecyclerView.layoutManager = LinearLayoutManager(activityContext)
+        bindigFragment.myRecyclerView.layoutManager = LinearLayoutManager(activity)
 
         //creamos el controller
-        controller = Controller(activityContext, this) //aseguro que no es null
+        controller = Controller(activity as MainActivity, this) //aseguro que no es null
 
     }
-
-
 }

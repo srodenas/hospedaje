@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/first_item"
+        android:title="Primer item"
+        android:icon="@drawable/baseline_hotel_24" />
+
+    <item
+        android:id="@+id/second_item"
+        android:title="Primer item"
+        android:icon="@drawable/baseline_view_list_24" />
+
+    <item
+        android:id="@+id/third_item"
+        android:title="Primer item"
+        android:icon="@drawable/baseline_login_24" />
+
+
+</menu>
+

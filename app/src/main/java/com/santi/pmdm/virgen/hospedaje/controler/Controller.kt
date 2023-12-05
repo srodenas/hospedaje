@@ -61,7 +61,8 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
                     pos-> updateHotel(pos) //actualizara el hotel seleccionado
             }
         )
-        contextFragment.bindigFragment
+        contextFragment
+            .bindigFragment
             .myRecyclerView.adapter = adapterHotel
 
     }
@@ -87,7 +88,10 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
     un nuevo alojamiento.
      */
     private fun initOnClickListener() {
-        contextFragment.bindigFragment.btnAdd.setOnClickListener {
+        contextFragment
+            .bindigFragment
+            .btnAdd
+            .setOnClickListener {
             addHotel()  //lambda que trata el evento del botón añadir. Inicia el Dialogo
         }
 
