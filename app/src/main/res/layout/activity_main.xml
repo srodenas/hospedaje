@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_drawer"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.google.android.material.navigation.NavigationView
-      android:id="@+id/nav_view"
+      android:id="@+id/my_nav_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       app:menu="@menu/nav_menu"
