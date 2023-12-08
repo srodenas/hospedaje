@@ -5,24 +5,39 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_drawer"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-           <include layout="@layout/content_ppal" />
+           <androidx.appcompat.widget.Toolbar
+               android:layout_width="match_parent"
+               android:layout_height="56dp"
+               android:id="@+id/my_toolbar"
+               android:elevation="4dp"
+               android:background="@color/blue_light"
+               android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+               app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+               />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include layout="@layout/content_ppal" android:id="@+id/includedContentLayout"/>
+
+            <include layout="@layout/botton_layout" android:id="@+id/includedBottonLayout"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>>
 
   <com.google.android.material.navigation.NavigationView
       android:id="@+id/my_nav_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:menu="@menu/nav_menu"
-      app:headerLayout="@layout/nav_header"
-      android:layout_gravity="start"
-      android:fitsSystemWindows="true">
+      app:menu="@menu/nav_menu_extend"
+      app:headerLayout="@layout/nav_header_extend"
+      android:layout_gravity="start">
   </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
