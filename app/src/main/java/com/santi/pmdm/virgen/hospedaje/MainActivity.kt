@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -18,6 +19,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.navigation.NavigationView
 import com.santi.pmdm.virgen.hospedaje.databinding.ActivityMainBinding
 import com.santi.pmdm.virgen.hospedaje.databinding.BottonLayoutBinding
 import com.santi.pmdm.virgen.hospedaje.databinding.ContentPpalBinding
@@ -31,7 +33,7 @@ import com.santi.pmdm.virgen.hospedaje.fragment.shorts.ShortsFragment
 import com.santi.pmdm.virgen.hospedaje.fragment.subscriptions.SubscriptionsFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding : ActivityMainBinding
     lateinit var fragmentHotel : HospedajeFragment
     lateinit var fragmentManager: FragmentManager
@@ -63,17 +65,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initDrawer()
-        initBotton()
-       // initFab()
+        initFab()
         createFragment()
         initFragmentManager(savedInstanceState)
-        initNavView()
 
 
     }
 
     private fun createFragment() {
-        fragmentManager = supportFragmentManager
         fragmentHotel = HospedajeFragment()
     }
 
@@ -100,6 +99,29 @@ class MainActivity : AppCompatActivity() {
 
         toggle.syncState()
 
+       //cargamos su listener
+        binding.myNavigationDrawer.setNavigationItemSelectedListener (this)
+
+        bindingincludeBottonLayout.myBottonNavigation.background = null
+
+        bindingincludeBottonLayout.myBottonNavigation.setOnItemSelectedListener { item ->
+
+            when (item.itemId){
+                R.id.bottom_home -> {
+                    replaceFragment(bindingincludeContentLayout.containerFragment.id, HomeFragment())
+                }
+                R.id.bottom_shorts -> {
+                    replaceFragment(bindingincludeContentLayout.containerFragment.id, ShortsFragment())
+                }
+                R.id.bottom_subscriptions -> {
+                    replaceFragment(bindingincludeContentLayout.containerFragment.id, SubscriptionsFragment())
+                }
+                R.id.bottom_library -> {
+                    replaceFragment(bindingincludeContentLayout.containerFragment.id, LibraryFragment())
+                }
+            }//fin when
+            true
+        }
         /*
         Debemos de habilitamos el botón de navegación hacia atrás en la Toolbar de la actividad.
         Suele ser la flecha hacia la izquierda y permite que el usuario navegue hacia atrás
@@ -109,47 +131,22 @@ class MainActivity : AppCompatActivity() {
          */
         supportActionBar?.setDisplayHomeAsUpEnabled(true)  //IMPORTANTE ACTIVARLO.
 
-
     } //fin initDrawer
 
 
 
-    private fun initBotton(){
-        //de momento no quiero incluir ningun fondo por medio del botton. Dejaré que trabaje el Drawer
-        bindingincludeBottonLayout.myBottonNavigationNav.setBackground(null)  //cambiar despues a backgroound = null
-        bindingincludeBottonLayout.myBottonNavigationNav.setOnItemSelectedListener { item ->
-            when (item.itemId){
-                R.id.nav_home -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, HomeFragment())
-                }
-                R.id.shorts -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, ShortsFragment())
-                }
-                R.id.subscriptions -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, SubscriptionsFragment())
-                }
-                R.id.library -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, LibraryFragment())
-                }
-            }//fin when
-            true
-        }
 
 
-    }
     private fun initFragmentManager(savedInstanceState : Bundle?) {
 
         if (savedInstanceState == null){
-            supportFragmentManager
+            fragmentManager = supportFragmentManager  //se crea la primera vez
+            fragmentManager
                 .beginTransaction()
                 .replace(R.id.container_fragment
                     , HomeFragment())
                 .commit()
-            binding.myNavView.setCheckedItem(R.id.nav_home)
+            binding.myNavigationDrawer.setCheckedItem(R.id.nav_home)
         }
 
        // replaceFragment(HomeFragment());
@@ -158,46 +155,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-    private fun initNavView() {
-        //La expresión lambda, retorna un booleao.
-        binding.myNavView.setNavigationItemSelectedListener { menu->
-            when (menu.itemId){
-                R.id.nav_home -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, HomeFragment())
-                }
-
-                R.id.nav_settings ->{
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, SettingsFragment())
-
-                }
-
-                R.id.nav_share -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, ShareFragment())
-                }
-
-                R.id.nav_about ->{
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, AboutFragment())
-
-
-                }
-
-                R.id.nav_list_hotel -> {
-                    replaceFragment(bindingincludeContentLayout
-                        .containerFragment.id, fragmentHotel)
-                }
-
-            }
-            binding.myDrawer.closeDrawer(GravityCompat.START)
-            true
-        }
-    }
-
-
+/*
     private fun initFab(){
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -235,34 +193,63 @@ class MainActivity : AppCompatActivity() {
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
     }
-
+ */
 
     override fun onBackPressed() {
         if (binding.myDrawer.isDrawerOpen(GravityCompat.START)) {
             binding.myDrawer.closeDrawer(GravityCompat.START);
         }
         else {
-            finish()
+            super.getOnBackPressedDispatcher().onBackPressed()
         }
     }
 
+
+
     private fun replaceFragment(container: Int, fragment: Fragment) {
+
         fragmentManager
             .beginTransaction()
-            .replace(container, fragment)
+            .replace(container
+                , fragment)
             .commit()
     }
 
-    //Controlamos la pulsación del botón de navegación del Toolbar.
-   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item))
-            true
-        return super.onOptionsItemSelected(item)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                replaceFragment(R.id.container_fragment, HomeFragment())
+            }
+
+            R.id.nav_settings -> {
+                replaceFragment(R.id.container_fragment, SettingsFragment())
+
+            }
+
+            R.id.nav_share -> {
+                replaceFragment(R.id.container_fragment, ShareFragment())
+            }
+
+            R.id.nav_about -> {
+                replaceFragment(R.id.container_fragment, AboutFragment())
+
+
+            }
+
+            R.id.nav_list_hotel -> {
+                replaceFragment(R.id.container_fragment, fragmentHotel)
+            }
+
+        }
+        binding.myDrawer.closeDrawer(GravityCompat.START)
+        return true
     }
-*/
 
 
-
-
+    private fun initFab(){
+        bindingincludeBottonLayout.fab.setOnClickListener{
+            Toast.makeText(this, "Pulso + ", Toast.LENGTH_LONG).show()
+        }
+    }
 
 }

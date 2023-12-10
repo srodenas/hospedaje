@@ -4,15 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
+    android:layout_marginTop="60dp">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"  />
-      <!--  android:name="com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment"-->
-
-
 </LinearLayout>
