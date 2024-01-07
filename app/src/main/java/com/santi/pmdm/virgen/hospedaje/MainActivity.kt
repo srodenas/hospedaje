@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(){
         setSupportActionBar(binding.appBarMain.myToolbar)
 
 
-        //Necesitamos nuestro componente de navegación.
+        //Necesitamos nuestro componente principal del Drawer.
         val navView = binding.myNavView
 
         /*
