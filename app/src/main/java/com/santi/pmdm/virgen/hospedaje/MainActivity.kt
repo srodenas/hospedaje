@@ -200,11 +200,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.myDrawer.closeDrawer(GravityCompat.START);
         }
         else {
-            super.getOnBackPressedDispatcher().onBackPressed()
+            super.onBackPressed()
         }
     }
 
 
+
+    /*override fun onBackPressed() {
+        super.onBackPressed()
+    }
+*/
 
     private fun replaceFragment(container: Int, fragment: Fragment) {
 

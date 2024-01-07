@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("androidx.navigation.safeargs.kotlin")
+
+
 }
 
 android {
@@ -9,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.santi.pmdm.virgen.hospedaje"
         minSdk 27
-        targetSdk 30
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
