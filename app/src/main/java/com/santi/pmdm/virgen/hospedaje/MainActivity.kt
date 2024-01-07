@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,12 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.santi.pmdm.virgen.hospedaje.databinding.ActivityMainBinding
 import com.santi.pmdm.virgen.hospedaje.databinding.BottonLayoutBinding
@@ -33,228 +40,73 @@ import com.santi.pmdm.virgen.hospedaje.fragment.shorts.ShortsFragment
 import com.santi.pmdm.virgen.hospedaje.fragment.subscriptions.SubscriptionsFragment
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(){
     lateinit var binding : ActivityMainBinding
-    lateinit var fragmentHotel : HospedajeFragment
-    lateinit var fragmentManager: FragmentManager
-    lateinit var bindingincludeContentLayout : ContentPpalBinding
-    lateinit var bindingincludeBottonLayout : BottonLayoutBinding
-    /*
-    ActionBarDrawerToggle, controla el estado del cajón abierto o cerrado
-    del NavigationDrawer.
-    1.- Cuando se abre, el icono de flecha arriba cambia automácitamente para que
-    vuelva para atrás, siempre que el cajón está abierto. Ese icono se encuentra
-    en el Toolbar.
-    2.- Posee un listener, para detectar cuando se abre o cierra el cajón.
-    3.- Necesitamos sincronizar con el estado del Drawer, para que el icono del
-    Toolbar, refleje correctamente el estado del Drawer. Cuando el drawer se abre,
-    cambia el icono del Toolbar con una flecha hacia atrás. Cuando el drawer se cierra,
-    cambia el icono de la flecha por otro nuevo.
-     */
+
+
 
 
     /*
     Un NavigationView, maneja el menú del Drawer y el header.
      */
-    lateinit var toggle: ActionBarDrawerToggle
+    lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =ActivityMainBinding.inflate(layoutInflater)
-        bindingincludeContentLayout = ContentPpalBinding.bind(binding.includedContentLayout.root)
-        bindingincludeBottonLayout = BottonLayoutBinding.bind(binding.includedBottonLayout.root)
+
         setContentView(binding.root)
 
-        initDrawer()
         initFab()
-        createFragment()
-        initFragmentManager(savedInstanceState)
+
+        initProcessDrawer()
 
 
     }
 
-    private fun createFragment() {
-        fragmentHotel = HospedajeFragment()
-    }
+    /*
+    Aquí está la modificación que haré
+     */
+    private fun initProcessDrawer() {
 
+       // val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment //Nuestro NavHostFragment
+       // val navController = navHostFragment.navController //Nuestro navController
+        setSupportActionBar(binding.appBarMain.myToolbar)
 
-    private fun initDrawer() {
-
-        setSupportActionBar(binding.myToolbar) //cargamos nuestro toolbar personalizado
-        toggle = ActionBarDrawerToggle(
-            this,
-            binding.myDrawer,
-            binding.myToolbar,
-            R.string.open,
-            R.string.close)
-
-        /*
-        añadimos el listener para que el Toolbar se entere (cuando se abre o cierra)
-         */
-        binding.myDrawer.addDrawerListener(toggle)
-
-        /*
-        sincronizamos toggle con respecto al drawer, para el botón de acción
-        del Toolbar
-         */
-
-        toggle.syncState()
-
-       //cargamos su listener
-        binding.myNavigationDrawer.setNavigationItemSelectedListener (this)
-
-        bindingincludeBottonLayout.myBottonNavigation.background = null
-
-        bindingincludeBottonLayout.myBottonNavigation.setOnItemSelectedListener { item ->
-
-            when (item.itemId){
-                R.id.bottom_home -> {
-                    replaceFragment(bindingincludeContentLayout.containerFragment.id, HomeFragment())
-                }
-                R.id.bottom_shorts -> {
-                    replaceFragment(bindingincludeContentLayout.containerFragment.id, ShortsFragment())
-                }
-                R.id.bottom_subscriptions -> {
-                    replaceFragment(bindingincludeContentLayout.containerFragment.id, SubscriptionsFragment())
-                }
-                R.id.bottom_library -> {
-                    replaceFragment(bindingincludeContentLayout.containerFragment.id, LibraryFragment())
-                }
-            }//fin when
-            true
-        }
-        /*
-        Debemos de habilitamos el botón de navegación hacia atrás en la Toolbar de la actividad.
-        Suele ser la flecha hacia la izquierda y permite que el usuario navegue hacia atrás
-        en la pila de actividades. Activa la función onOptionsItemSelected() y podemos
-        manejar la acción de retroceso según nuestras necesidades.
-        Si no lo activamos, tendremos que arrastrar el cajón del navigation.
-         */
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)  //IMPORTANTE ACTIVARLO.
-
-    } //fin initDrawer
-
-
-
-
-
-    private fun initFragmentManager(savedInstanceState : Bundle?) {
-
-        if (savedInstanceState == null){
-            fragmentManager = supportFragmentManager  //se crea la primera vez
-            fragmentManager
-                .beginTransaction()
-                .replace(R.id.container_fragment
-                    , HomeFragment())
-                .commit()
-            binding.myNavigationDrawer.setCheckedItem(R.id.nav_home)
-        }
-
-       // replaceFragment(HomeFragment());
-
-    } //fin initFragment
-
-
-
-/*
-    private fun initFab(){
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.bottomsheetlayout)
-        val videoLayout = dialog.findViewById<LinearLayout>(R.id.layoutVideo)
-        val shortsLayout = dialog.findViewById<LinearLayout>(R.id.layoutShorts)
-        val liveLayout = dialog.findViewById<LinearLayout>(R.id.layoutLive)
-        val cancelButton = dialog.findViewById<ImageView>(R.id.cancelButton)
-
-        videoLayout.setOnClickListener {
-            dialog.dismiss()
-            Toast.makeText(this, "Upload a Video is clicked", Toast.LENGTH_SHORT).show()
-        }
-
-        shortsLayout.setOnClickListener {
-            dialog.dismiss()
-            Toast.makeText(this, "Create a short is Clicked", Toast.LENGTH_SHORT)
-                .show()
-        }
-
-        liveLayout.setOnClickListener {
-            dialog.dismiss()
-            Toast.makeText(this, "Go live is Clicked", Toast.LENGTH_SHORT).show()
-        }
-
-        cancelButton.setOnClickListener { dialog.dismiss() }
-        dialog.show()
-
-        dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+        val navController = findNavController(R.id.container_fragment)
+        val navView = binding.myNavView
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment,R.id.settingsFragment, R.id.shareFragment, R.id.aboutFragment,
+                     R.id.shortsFragment, R.id.subscriptionsFragment, R.id.libraryFragment),
+            binding.myDrawer
         )
+        setupActionBarWithNavController(navController, appBarConfiguration) //Configuro la barra de acciones con el NavController y appBarConfiguration
+        navView.setupWithNavController(navController)
 
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-    }
- */
 
-    override fun onBackPressed() {
-        if (binding.myDrawer.isDrawerOpen(GravityCompat.START)) {
-            binding.myDrawer.closeDrawer(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed()
-        }
+       // binding.myNavigationDrawer.setupWithNavController(navController) //Configuro la navegación para el Drawer con el navController.
+        binding.appBarMain.myBottonNavigation.setupWithNavController(navController)
+
     }
 
-
-
-    /*override fun onBackPressed() {
-        super.onBackPressed()
-    }
-*/
-
-    private fun replaceFragment(container: Int, fragment: Fragment) {
-
-        fragmentManager
-            .beginTransaction()
-            .replace(container
-                , fragment)
-            .commit()
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-                replaceFragment(R.id.container_fragment, HomeFragment())
-            }
-
-            R.id.nav_settings -> {
-                replaceFragment(R.id.container_fragment, SettingsFragment())
-
-            }
-
-            R.id.nav_share -> {
-                replaceFragment(R.id.container_fragment, ShareFragment())
-            }
-
-            R.id.nav_about -> {
-                replaceFragment(R.id.container_fragment, AboutFragment())
-
-
-            }
-
-            R.id.nav_list_hotel -> {
-                replaceFragment(R.id.container_fragment, fragmentHotel)
-            }
-
-        }
-        binding.myDrawer.closeDrawer(GravityCompat.START)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
     }
 
+    override fun onSupportNavigateUp(): Boolean{
+
+        val navController = findNavController(R.id.container_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()    }
+
 
     private fun initFab(){
-        bindingincludeBottonLayout.fab.setOnClickListener{
+        binding.appBarMain.fab.setOnClickListener{
             Toast.makeText(this, "Pulso + ", Toast.LENGTH_LONG).show()
         }
     }
+
+
+
 
 }

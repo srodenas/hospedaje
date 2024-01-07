@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.about.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/hospedajeFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment"
+        android:label="fragment_hospedaje"
+        tools:layout="@layout/fragment_hospedaje" />
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.library.LibraryFragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/shortsFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.shorts.ShortsFragment"
+        android:label="fragment_shorts"
+        tools:layout="@layout/fragment_shorts" />
+    <fragment
+        android:id="@+id/subscriptionsFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.subscriptions.SubscriptionsFragment"
+        android:label="fragment_subscriptions"
+        tools:layout="@layout/fragment_subscriptions" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.share.ShareFragment"
+        android:label="fragment_share"
+        tools:layout="@layout/fragment_share" />
+</navigation>
