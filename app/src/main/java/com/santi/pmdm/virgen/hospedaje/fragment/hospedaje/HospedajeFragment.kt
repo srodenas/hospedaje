@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.santi.pmdm.virgen.hospedaje.MainActivity
@@ -29,13 +30,7 @@ Esta clase, será la que se encargue de cargar el recyclerView.
 class HospedajeFragment () : Fragment() {
     lateinit var bindigFragment: FragmentHospedajeBinding
     lateinit var controller : Controller
-    //lateinit var activityContext : Context
 
-   /* override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activityContext = context as MainActivity
-    }
-    */
 
     //CREO LA VISTA DEL FRAGMENTO
     override fun onCreateView(
@@ -64,6 +59,7 @@ class HospedajeFragment () : Fragment() {
 
         //creamos el controller
         controller = Controller(activity as MainActivity, this) //aseguro que no es null
+
 
     }
 }

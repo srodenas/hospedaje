@@ -11,7 +11,9 @@ Recibe la vista creada por el adaptador y mapeo de los datos en la vista.
  */
 class ViewHHotel(view: View,
                 var deleteOnClick: (Int) -> Unit,
-                 var updateOnClick: (Int) -> Unit
+                 var updateOnClick: (Int) -> Unit,
+                 var detailOnClick: (Int) -> Unit
+
 ) : RecyclerView.ViewHolder (view){
     lateinit var binding: ItemHotelBinding
 
@@ -43,6 +45,10 @@ class ViewHHotel(view: View,
 
         binding.btnDelete.setOnClickListener{
             deleteOnClick(position)
+        }
+
+        binding.btnDetail.setOnClickListener{
+            detailOnClick(position)
         }
     }
 }

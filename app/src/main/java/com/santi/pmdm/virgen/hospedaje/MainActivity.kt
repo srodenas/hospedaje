@@ -20,6 +20,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity(){
     Un NavigationView, maneja el menú del Drawer y el header.
      */
     lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =ActivityMainBinding.inflate(layoutInflater)
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity(){
          val navController = findNavController(R.id.container_fragment)
          */
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment //Nuestro NavHostFragment
-        val navController = navHostFragment.navController //Nuestro navController
+        navController = navHostFragment.navController //Nuestro navController
 
         /*
         1.- Personalizamos nuestra barra de superior personalizada. La incorporamos.
@@ -133,7 +135,7 @@ class MainActivity : AppCompatActivity(){
      */
     override fun onSupportNavigateUp(): Boolean{
 
-        val navController = findNavController(R.id.container_fragment)
+       // val navController = findNavController(R.id.container_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()    }
 
 
@@ -142,5 +144,15 @@ class MainActivity : AppCompatActivity(){
             Toast.makeText(this, "Pulso + ", Toast.LENGTH_LONG).show()
         }
     }
+
+   /* fun navigateDetails(pos: Int){
+       // Toast.makeText(this, "He pulsado los detalles de un item de posición $pos", Toast.LENGTH_LONG).show()
+      //  val navController = findNavController(R.id.container_fragment)
+      //  navController.navigate(R.id.action_hospedajeFragment_to_detailsHotelFragment)
+        navController.navigate(R.id.action_hospedajeFragment_to_detailsHotelFragment)
+
+    }
+
+    */
 
 }

@@ -9,7 +9,8 @@ import com.santi.pmdm.virgen.hospedaje.models.Hotel
 class AdapterHotel(
     var listHotel : MutableList<Hotel>,
     var deleteOnClick: (Int) -> Unit,
-    var updateOnClick: ( Int) -> Unit
+    var updateOnClick: ( Int) -> Unit,
+    var detailOnClick: (Int) -> Unit
 ) : RecyclerView.Adapter<ViewHHotel>(){
   /*
   Método que crea la view del ViewHolderHotel
@@ -20,7 +21,8 @@ class AdapterHotel(
        return ViewHHotel(
            layoutInflater.inflate(layoutItemHotel, parent, false),
            deleteOnClick,
-           updateOnClick
+           updateOnClick,
+           detailOnClick
        )
     }
 

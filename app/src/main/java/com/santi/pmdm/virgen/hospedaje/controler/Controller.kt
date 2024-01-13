@@ -3,8 +3,11 @@ package com.santi.pmdm.virgen.hospedaje.controler
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.santi.pmdm.virgen.hospedaje.MainActivity
+import com.santi.pmdm.virgen.hospedaje.R
 import com.santi.pmdm.virgen.hospedaje.adapter.AdapterHotel
 import com.santi.pmdm.virgen.hospedaje.dao.DaoHotels
 import com.santi.pmdm.virgen.hospedaje.dialogues.DialogDeleteHotel
@@ -59,6 +62,9 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
 
             {
                     pos-> updateHotel(pos) //actualizara el hotel seleccionado
+            },
+            {
+                    pos -> details(pos)  //para los detalles del item
             }
         )
         contextFragment
@@ -148,6 +154,21 @@ class Controller (val context : Context, val contextFragment : HospedajeFragment
 
         val myActivity = context as MainActivity
         dialog.show(myActivity.supportFragmentManager, "Borraremos el hotel de posición $pos")
+    }
+
+
+    fun details(pos : Int){
+        Toast.makeText(context as MainActivity, "He pulsado los detalles de un item de posición $pos", Toast.LENGTH_LONG).show()
+
+        val navController = contextFragment.findNavController()
+        navController.navigate(R.id.action_hospedajeFragment_to_detailsHotelFragment2)
+
+       /* val t = (context as MainActivity)
+        val nH = t.supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
+        val nC = nH.navController
+        nC.navigate(R.id.action_hospedajeFragment_to_detailsHotelFragment2)
+*/
+
     }
 
 

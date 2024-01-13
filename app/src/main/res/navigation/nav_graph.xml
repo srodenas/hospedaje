@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.santi.pmdm.virgen.hospedaje.fragment.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_pruebaFragment"
+            app:destination="@id/pruebaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.santi.pmdm.virgen.hospedaje.fragment.about.AboutFragment"
@@ -19,7 +23,11 @@
         android:id="@+id/hospedajeFragment"
         android:name="com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment"
         android:label="fragment_hospedaje"
-        tools:layout="@layout/fragment_hospedaje" />
+        tools:layout="@layout/fragment_hospedaje" >
+        <action
+            android:id="@+id/action_hospedajeFragment_to_detailsHotelFragment2"
+            app:destination="@id/detailsHotelFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.santi.pmdm.virgen.hospedaje.fragment.library.LibraryFragment"
@@ -45,4 +53,14 @@
         android:name="com.santi.pmdm.virgen.hospedaje.fragment.share.ShareFragment"
         android:label="fragment_share"
         tools:layout="@layout/fragment_share" />
+    <fragment
+        android:id="@+id/pruebaFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.prueba.PruebaFragment"
+        android:label="fragment_prueba"
+        tools:layout="@layout/fragment_prueba" />
+    <fragment
+        android:id="@+id/detailsHotelFragment2"
+        android:name="com.santi.pmdm.virgen.hospedaje.fragment.details.DetailsHotelFragment"
+        android:label="fragment_details_hotel"
+        tools:layout="@layout/fragment_details_hotel" />
 </navigation>
