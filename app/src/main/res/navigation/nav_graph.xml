@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.home.HomeFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,51 +16,56 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.about.AboutFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.about.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/hospedajeFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.hospedaje.HospedajeFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.hospedaje.HospedajeFragment"
         android:label="fragment_hospedaje"
         tools:layout="@layout/fragment_hospedaje" >
         <action
             android:id="@+id/action_hospedajeFragment_to_detailsHotelFragment2"
             app:destination="@id/detailsHotelFragment2" />
+
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.library.LibraryFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.library.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.settings.SettingsFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/shortsFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.shorts.ShortsFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.shorts.ShortsFragment"
         android:label="fragment_shorts"
         tools:layout="@layout/fragment_shorts" />
     <fragment
         android:id="@+id/subscriptionsFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.subscriptions.SubscriptionsFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.subscriptions.SubscriptionsFragment"
         android:label="fragment_subscriptions"
         tools:layout="@layout/fragment_subscriptions" />
     <fragment
         android:id="@+id/shareFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.share.ShareFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.share.ShareFragment"
         android:label="fragment_share"
         tools:layout="@layout/fragment_share" />
     <fragment
         android:id="@+id/pruebaFragment"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.prueba.PruebaFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.prueba.PruebaFragment"
         android:label="fragment_prueba"
         tools:layout="@layout/fragment_prueba" />
     <fragment
         android:id="@+id/detailsHotelFragment2"
-        android:name="com.santi.pmdm.virgen.hospedaje.fragment.details.DetailsHotelFragment"
+        android:name="com.santi.pmdm.virgen.hospedaje.ui.fragment.details.DetailsHotelFragment"
         android:label="fragment_details_hotel"
-        tools:layout="@layout/fragment_details_hotel" />
+        tools:layout="@layout/fragment_details_hotel" >
+        <argument
+            android:name="num"
+            app:argType="integer" />
+    </fragment>
 </navigation>
