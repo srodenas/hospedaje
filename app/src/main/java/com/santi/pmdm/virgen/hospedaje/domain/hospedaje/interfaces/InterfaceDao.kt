@@ -11,7 +11,11 @@ Marca los métodos que debe tener para independizar del resto de clases.
  */
 interface InterfaceDao {
     fun getDataHotels(): List<Hotel>
-  // fun getHotel(a:Int) : Hotel
-  //  fun addHotel(hotel : Hotel) : Boolean
+   fun deleteHotel(a:Int)
+    fun addHotel(  pos: Int, hotel : Hotel): Int
+
+    fun exisHotel(hotel : Hotel) : Boolean
+
+    fun devHotelForPost(pos : Int): Hotel
 
 }
