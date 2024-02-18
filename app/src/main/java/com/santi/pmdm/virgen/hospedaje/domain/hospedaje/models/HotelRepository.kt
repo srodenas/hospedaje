@@ -1,7 +1,8 @@
 package com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models
 
+
+import com.santi.pmdm.virgen.hospedaje.data.hospedaje.mem.objects_models.RepositoryObjects
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.interfaces.InterfaceDao
-import com.santi.pmdm.virgen.hospedaje.data.hospedaje_users.mem.objects_models.RepositoryObjects
 
 /*
 Es interesante ver como definimos un constructor privado por defecto, para

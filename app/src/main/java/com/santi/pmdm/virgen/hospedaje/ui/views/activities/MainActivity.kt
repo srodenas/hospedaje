@@ -15,8 +15,9 @@ import com.santi.pmdm.virgen.hospedaje.R
 import com.santi.pmdm.virgen.hospedaje.databinding.ActivityMainBinding
 import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.controler.ControllerDetailsHotel
 import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.controler.ControllerFragmentHotels
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(){
     lateinit var binding : ActivityMainBinding
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun createControllers() {
-        controllerFragmentHotels = ControllerFragmentHotels(this)
+       // controllerFragmentHotels = ControllerFragmentHotels(this)
         controllerDetailsHotel = ControllerDetailsHotel(this)
     }
 

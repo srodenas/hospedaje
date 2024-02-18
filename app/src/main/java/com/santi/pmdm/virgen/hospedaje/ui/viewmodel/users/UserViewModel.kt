@@ -37,7 +37,7 @@ class UserViewModel @Inject constructor(
                 if (user != null)
                     login.value = true
                 else
-                    login.value = true
+                    login.value = false
             }
         }
     }

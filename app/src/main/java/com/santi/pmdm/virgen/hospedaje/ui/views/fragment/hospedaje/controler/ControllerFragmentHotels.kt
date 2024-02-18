@@ -23,8 +23,8 @@ Clase qye controlará todos los eventos que se produzcan.
 1.- Al crearse, llama al Dao y le devuelve todos los Hoteles. Lo inicializa
  */
 class ControllerFragmentHotels (val context : Context){
-    lateinit var listHotels : MutableList<Hotel>  //lista de objetos (Repositorio).
-    lateinit var adapterHotel: AdapterHotel     //Encargado de adaptar los objetos a las vistas.
+    //lateinit var listHotels : MutableList<Hotel>  //lista de objetos (Repositorio).
+  /*  lateinit var adapterHotel: AdapterHotel     //Encargado de adaptar los objetos a las vistas.
     val getHotelsUseCase = GetHotelsUseCase()
     val newHotelUseCase = NewHotelUseCase()
     val getHotelForPosUseCase = GetHotelForPosUseCase()
@@ -221,5 +221,5 @@ class ControllerFragmentHotels (val context : Context){
             println (it)
         }
     }
-
+*/
 }

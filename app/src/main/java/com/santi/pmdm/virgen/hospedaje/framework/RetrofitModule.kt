@@ -1,5 +1,6 @@
 package com.santi.pmdm.virgen.hospedaje.framework
 
+
 import com.santi.pmdm.virgen.hospedaje.data.hospedaje_users.network.service.HospedajeApiServiceInterface
 import dagger.Module
 import dagger.Provides
@@ -19,7 +20,7 @@ object RetrofitModule{
     única instancia del Servicio.
      */
 
-    private const val URL_BASE_RETROFIT = "https://dog.ceo/api/"
+    private const val URL_BASE_RETROFIT = "http://10.0.2.2/api-pueblos/endp/"
 
     @Singleton
     @Provides
@@ -30,11 +31,13 @@ object RetrofitModule{
         .build()
 
 
+
     @Singleton
     @Provides
     fun provideServiceApi(retrofit : Retrofit): HospedajeApiServiceInterface =
         retrofit
         .create(HospedajeApiServiceInterface::class.java)
+
 
 
 }

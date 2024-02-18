@@ -1,5 +1,4 @@
-
-package com.santi.pmdm.virgen.hospedaje.data.hospedaje.mem.objects_models
+package com.santi.pmdm.virgen.hospedaje.data.hospedaje_users.mem.objects_models
 
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.Hotel
 

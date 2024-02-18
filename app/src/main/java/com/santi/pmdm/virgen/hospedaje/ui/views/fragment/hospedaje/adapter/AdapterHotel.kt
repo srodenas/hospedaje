@@ -25,6 +25,12 @@ class AdapterHotel(
            detailOnClick
        )
     }
+    fun updateHotels(_listHotels: MutableList<Hotel>) {
+        listHotel = _listHotels
+        notifyDataSetChanged()
+    }
+
+
 
     /*
     Este método, debe renderizar todos los datos o propiedades de cada hotel con la view.
