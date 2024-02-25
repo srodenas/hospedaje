@@ -1,9 +1,9 @@
 package com.santi.pmdm.virgen.hospedaje.domain.hospedaje.usecase
 
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.Hotel
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.HotelRepository
+import javax.inject.Inject
 
-class DeleteHotelUseCase {
+class DeleteHotelUseCase @Inject constructor(private val hotelRepository: HotelRepository) {
     private var pos : Int = 0
 
     fun setPos(_pos: Int){
@@ -11,6 +11,6 @@ class DeleteHotelUseCase {
     }
 
     operator fun invoke(){
-        HotelRepository.myDao.deleteHotel(pos)
+        hotelRepository.deleteHotel(pos)
     }
 }

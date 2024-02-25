@@ -1,22 +1,6 @@
 package com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.controler
 
 import android.content.Context
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.santi.pmdm.virgen.hospedaje.ui.views.activities.MainActivity
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.adapter.AdapterHotel
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.dialogues.DialogDeleteHotel
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.dialogues.DialogEditHotel
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.dialogues.DialogNewHotel
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.HospedajeFragment
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.Hotel
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.ListHotel
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.usecase.DeleteHotelUseCase
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.usecase.GetHotelForPosUseCase
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.usecase.GetHotelsUseCase
-import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.usecase.NewHotelUseCase
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.HospedajeFragmentDirections
 
 /*
 Clase qye controlará todos los eventos que se produzcan.

@@ -3,8 +3,9 @@ package com.santi.pmdm.virgen.hospedaje.domain.hospedaje.usecase
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.Hotel
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.HotelRepository
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.ListHotel
+import javax.inject.Inject
 
-class NewHotelUseCase {
+class NewHotelUseCase @Inject constructor(private val hotelRepository: HotelRepository){
     private var newHotel : Hotel? = null
 
     fun setHotel(hotel : Hotel){
@@ -14,8 +15,8 @@ class NewHotelUseCase {
 
 
     operator fun invoke():Int{
-        return if (!HotelRepository.myDao.exisHotel( this.newHotel!!)) {
-            return HotelRepository.myDao.addHotel(ListHotel.hotels.hospedajes.size, this.newHotel!!)
+        return if (!hotelRepository.exisHotel( this.newHotel!!)) {
+            return hotelRepository.addHotel(ListHotel.hotels.hospedajes.size, this.newHotel!!)
         }else
             -1
 

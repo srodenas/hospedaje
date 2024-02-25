@@ -6,6 +6,7 @@ import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity(){
      */
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
-    lateinit var controllerFragmentHotels : ControllerFragmentHotels
     lateinit var controllerDetailsHotel: ControllerDetailsHotel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun createControllers() {
-       // controllerFragmentHotels = ControllerFragmentHotels(this)
         controllerDetailsHotel = ControllerDetailsHotel(this)
     }
 
@@ -85,6 +84,8 @@ class MainActivity : AppCompatActivity(){
         )
 
 
+
+
         /*
         1.- Aplica la configuración del appBarConfiguration, vinculándolo con la navegación a partir del navController.
         2.- !!!!!Sin esto, no veríamos el botón de navegación !!!!!!
@@ -122,7 +123,7 @@ class MainActivity : AppCompatActivity(){
      */
     override fun onSupportNavigateUp(): Boolean{
 
-       // val navController = findNavController(R.id.container_fragment)
+
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()    }
 
 
@@ -131,15 +132,5 @@ class MainActivity : AppCompatActivity(){
             Toast.makeText(this, "Pulso + ", Toast.LENGTH_LONG).show()
         }
     }
-
-   /* fun navigateDetails(pos: Int){
-       // Toast.makeText(this, "He pulsado los detalles de un item de posición $pos", Toast.LENGTH_LONG).show()
-      //  val navController = findNavController(R.id.container_fragment)
-      //  navController.navigate(R.id.action_hospedajeFragment_to_detailsHotelFragment)
-        navController.navigate(R.id.action_hospedajeFragment_to_detailsHotelFragment)
-
-    }
-
-    */
 
 }

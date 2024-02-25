@@ -10,9 +10,11 @@ tener un servicio en red. Puede ser:
 Marca los métodos que debe tener para independizar del resto de clases.
  */
 interface InterfaceDao {
-    fun getDataHotels(): List<Hotel>
+    fun getNativeHotels(): List<Hotel>
    fun deleteHotel(a:Int)
     fun addHotel(  pos: Int, hotel : Hotel): Int
+
+    fun update(pos : Int, hotel: Hotel)
 
     fun exisHotel(hotel : Hotel) : Boolean
 

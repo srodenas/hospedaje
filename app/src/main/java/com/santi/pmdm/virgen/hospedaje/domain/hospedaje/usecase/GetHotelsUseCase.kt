@@ -5,14 +5,9 @@ import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.HotelRepository
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.ListHotel
 import javax.inject.Inject
 
-class GetHotelForPosUseCase @Inject constructor(private val hotelRepository: HotelRepository) {
-    private var pos : Int = 0
-
-    fun setPos(_pos: Int){
-        pos = _pos  //lo seteamos.
+class GetHotelsUseCase @Inject constructor(private val hotelRepository: HotelRepository){
+    operator fun invoke(): MutableList<Hotel>?{
+        ListHotel.hotels.hospedajes = hotelRepository.getHotels().toMutableList()  //cargamos toda la lista de hoteles, en el singleton
+        return ListHotel.hotels.hospedajes
     }
-
-    operator fun invoke(): Hotel  = hotelRepository.devHotelForPost(pos)
-
-
 }

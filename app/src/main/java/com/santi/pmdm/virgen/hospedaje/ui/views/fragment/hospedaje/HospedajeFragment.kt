@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.santi.pmdm.virgen.hospedaje.ui.views.activities.MainActivity
-import com.santi.pmdm.virgen.hospedaje.ui.views.fragment.hospedaje.controler.ControllerFragmentHotels
 import com.santi.pmdm.virgen.hospedaje.databinding.FragmentHospedajeBinding
 import com.santi.pmdm.virgen.hospedaje.domain.hospedaje.models.Hotel
 import com.santi.pmdm.virgen.hospedaje.ui.viewmodel.hospedaje.HospedajeViewModel
@@ -23,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 /*
 Esta clase, será la que se encargue de cargar el recyclerView.
  */
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class HospedajeFragment () : Fragment() {
     lateinit var bindigFragment: FragmentHospedajeBinding
 
@@ -51,9 +50,10 @@ class HospedajeFragment () : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bindigFragment.myRecyclerView.layoutManager = LinearLayoutManager(activity)
         setAdapter(mutableListOf()) //creamos el adapter, con datos vacíos.
         setObserver()       //observamos cambios en los datos.
-        hospedajeViewModel.showHotels2()    //cargamos los datos por primera vez.
+        hospedajeViewModel.showHotels()//mostramos todos los hoteles o de forma nativa o con los que hemos estado trabajando en mem.
         btnAddOnClickListener()             //eventos
         setScrollWithOffsetLinearLayout()  //Necesitamos el LayoutManager para posicionar el offset del scroll
     }
@@ -82,7 +82,15 @@ class HospedajeFragment () : Fragment() {
             {
                     posDel->
                         adapterHotel.notifyItemRemoved(posDel) //notificamos.
+                        layoutManager.scrollToPositionWithOffset(posDel, 20)
 
+            })
+
+        hospedajeViewModel.posUpdateHotelLiveData.observe(viewLifecycleOwner,
+            {
+                    posUpdate ->
+                        adapterHotel.notifyItemInserted(posUpdate)
+                        layoutManager.scrollToPositionWithOffset(posUpdate, 20)
             })
 
     }
@@ -130,8 +138,8 @@ class HospedajeFragment () : Fragment() {
         val dialog = DialogNewHotel(){
                 hotel -> okOnNewHotel(hotel)
         }
-        val myActivity = context as MainActivity
-        dialog.show(myActivity.supportFragmentManager, "Añadimos un nuevo hotel")
+        val contexto = requireActivity()
+        dialog.show(contexto.supportFragmentManager, "Añadimos un nuevo hotel")
 
     }
     //respuesta desde el dialogo. Aquí efectuamos la inserción.
@@ -166,38 +174,32 @@ class HospedajeFragment () : Fragment() {
         val editDialog = DialogEditHotel(hospedajeViewModel.getHotelsForPosition(pos)){
                 editHotel -> okOnEditHotel(editHotel, pos)
         }
-        val myActivity = context as MainActivity
-        editDialog.show(myActivity.supportFragmentManager, "Editamos un hotel")
+        val contexto = requireActivity()
+        editDialog.show(contexto.supportFragmentManager, "Editamos un hotel")
 
 
     }
 
     private fun okOnEditHotel(editHotel: Hotel, pos: Int) {
-        okOnDeleteHotel(pos)
-        okOnNewHotel(editHotel)
+
+        hospedajeViewModel.updateHotel(editHotel, pos)
     }
     /* ---------- Fin parte de la acción a la actualización de un hotel --*/
 
     fun details(pos : Int){
-        Toast.makeText(context as MainActivity, "He pulsado los detalles de un item de posición $pos", Toast.LENGTH_LONG).show()
+        val contexto = requireActivity()
+        Toast.makeText(contexto, "He pulsado los detalles de un item de posición $pos", Toast.LENGTH_LONG).show()
         val navController = this.findNavController()
         navController.navigate(HospedajeFragmentDirections.actionHospedajeFragmentToDetailsHotelFragment2(num = pos))
     }
 
 
     private fun setScrollWithOffsetLinearLayout() {
-        val myRecyclerView = bindigFragment.myRecyclerView
 
-        if (myRecyclerView.layoutManager is LinearLayoutManager){
-            layoutManager = myRecyclerView.layoutManager as LinearLayoutManager
+        if (bindigFragment.myRecyclerView.layoutManager is LinearLayoutManager){
+            layoutManager = bindigFragment.myRecyclerView.layoutManager as LinearLayoutManager
         }
 
-      /*  layoutManager = this
-            .bindigFragment
-            .myRecyclerView
-            .layoutManager as LinearLayoutManager
-
-       */
     }
 
 }
