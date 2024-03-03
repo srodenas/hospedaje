@@ -15,16 +15,19 @@ class UserRepository @Inject constructor(
             .onSuccess {
                 responseUser->
                     return User(
+
                         responseUser.id,
                         responseUser.token,
                         responseUser.email,
-                        responseUser.passw,
-                        responseUser.disponible,
+                        "",
+                        1,
+                     //   responseUser.passw,
+                      //  responseUser.disponible,
                         responseUser.image)
 
         }
             .onFailure {
-                exception ->  println("Error en la excepcion ${exception.message}")
+                exception ->  println(" ${exception.message}")
             }
         return null
     }

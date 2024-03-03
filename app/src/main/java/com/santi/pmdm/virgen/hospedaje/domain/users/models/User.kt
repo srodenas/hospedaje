@@ -9,4 +9,5 @@ data class User (var id: Int, var token: String, var email:String, var passw:Str
     constructor(email: String, passw: String):
             this(0, "", email, passw, 0, "")
 
+
 }

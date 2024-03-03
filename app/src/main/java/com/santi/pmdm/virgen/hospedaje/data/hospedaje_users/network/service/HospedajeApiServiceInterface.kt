@@ -11,5 +11,6 @@ interface HospedajeApiServiceInterface {
     @POST("auth")
     suspend fun login(@Body loginUser : RequestLoginUser): Response<ResponseLogin>
 
-
 }
+
+

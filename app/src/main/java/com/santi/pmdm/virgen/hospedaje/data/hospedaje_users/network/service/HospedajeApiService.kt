@@ -14,12 +14,14 @@ class HospedajeApiService @Inject constructor(val apiService: HospedajeApiServic
                 response.body()?.let{
                     retUser->
                             return Result.success(retUser)
+
                 }?: return Result.failure(RuntimeException("Respuesta de usuarios nula"))
             }else{
                 return Result.failure(RuntimeException("Error en la llamada y sin respuesta"))
             }
         }
         catch (e : Exception){
+
             return Result.failure(e)
         }
     }

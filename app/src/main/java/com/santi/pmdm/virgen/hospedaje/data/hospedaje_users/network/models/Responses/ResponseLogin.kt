@@ -28,14 +28,14 @@ data class ResponseLogin (
     @Expose
     val email : String,
 
-    @SerializedName("password")
+   /* @SerializedName("password")
     @Expose
     val passw : String,
 
     @SerializedName("disponible")
     @Expose
     val disponible : Int,
-
+*/
     @SerializedName("imagen")
     @Expose
     val image : String
